@@ -27,8 +27,7 @@ def get_loaders(batch_size=512):
     train_transform = A.Compose([
         A.RandomCrop(height=32, width=32, padding=4),
         A.HorizontalFlip(p=0.5),
-        A.Affine(scale=(0.9, 1.1), translate_percent=0.1, rotate=(-15, 15), p=0.5),
-        A.CoarseDropout(max_holes=1, max_height=16, max_width=16, p=0.5),
+        A.CoarseDropout(max_holes=1, max_height=8, max_width=8, p=0.5),
         A.Normalize(mean=(0.5071, 0.4865, 0.4409), std=(0.2673, 0.2564, 0.2762)),
         ToTensorV2()
     ])
