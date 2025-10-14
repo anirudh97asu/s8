@@ -62,7 +62,7 @@ def main():
     print(f'Using device: {device}')
     
     # Data
-    train_loader, test_loader = get_loaders(batch_size=256)
+    train_loader, test_loader = get_loaders(batch_size=768)
 
     torch.set_float32_matmul_precision("high")
     
