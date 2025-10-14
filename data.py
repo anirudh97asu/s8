@@ -28,9 +28,12 @@ def get_loaders(batch_size=128, num_workers=4):
     """
     CIFAR-100 dataloaders with pad+crop, flip, ColorJitter, cutout(CoarseDropout), normalize.
     """
-    # CIFAR-100 channel stats
-    mean = (0.5071, 0.4867, 0.4408)
-    std  = (0.2675, 0.2565, 0.2761)
+    # CIFAR-100 channel stats -> Befor Augmentations
+    #mean = (0.5071, 0.4867, 0.4408)
+    #std  = (0.2675, 0.2565, 0.2761)
+
+    mean = (0.49164050817489624, 0.4708925783634186, 0.4287804961204529)
+    std = (0.27113330364227295, 0.26383477449417114, 0.27615490555763245)
 
     train_transform = A.Compose([
         # pad 4 then random crop back to 32x32 (Albumentations version)
@@ -51,8 +54,8 @@ def get_loaders(batch_size=128, num_workers=4):
         # Cutout-style regularization
         A.CoarseDropout(
             max_holes=1,
-            max_height=16,  # slightly stronger than 8
-            max_width=16,
+            max_height=8,  # slightly stronger than 8
+            max_width=8,
             fill_value=(0, 0, 0),
             p=0.5
         ),

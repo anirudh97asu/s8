@@ -62,7 +62,7 @@ def main():
     print(f'Using device: {device}')
     
     # Data
-    train_loader, test_loader = get_loaders(batch_size=768)
+    train_loader, test_loader = get_loaders(batch_size=256)
 
     torch.set_float32_matmul_precision("high")
     
@@ -72,14 +72,15 @@ def main():
     
     # Training setup
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=9.12e-04)
-    scheduler = optim.lr_scheduler.OneCycleLR(
-                                            optimizer,
-                                            max_lr=9.12e-03,  # Use the minimum loss LR as max
-                                            epochs=100,
-                                            steps_per_epoch=len(train_loader),
-                                            pct_start=0.3
-                                        )
+    optimizer = optim.SGD()
+    # optimizer = optim.Adam(model.parameters(), lr=9.12e-04)
+    # scheduler = optim.lr_scheduler.OneCycleLR(
+    #                                         optimizer,
+    #                                         max_lr=9.12e-03,  # Use the minimum loss LR as max
+    #                                         epochs=100,
+    #                                         steps_per_epoch=len(train_loader),
+    #                                         pct_start=0.3
+    #                                     )
                                             
     # Training loop
     epochs = 100
@@ -90,7 +91,7 @@ def main():
         test_loss, test_acc = test(
             model, test_loader, criterion, device
         )
-        scheduler.step()
+        #scheduler.step()
         
         print(f'Epoch {epoch+1}/{epochs}:')
         print(f'  Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.2f}%')
